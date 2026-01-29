@@ -1,2 +1,3 @@
 # Network-Mode-Switcher
-change managed and monitor mode. mac address can be changed.
+This script is made for linux and can change network mode and mac address.
+I don't know if this can work on windows.
