@@ -25,6 +25,7 @@ if [[ "$mode" == "monitor" ]]; then
 elif [[ "$mode" == "managed" ]]; then
 	
 	ip link set dev $network_interface_mon down 2>/dev/null
+	iw dev $network_interface set type $mode
 	iw dev $network_interface_mon del 2>/dev/null
 	ip link set $network_interface up
 	systemctl restart NetworkManager wpa_supplicant
