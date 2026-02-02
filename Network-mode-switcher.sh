@@ -8,10 +8,11 @@ read -p "MAC Address: " mac_address
 read -p "Mode(managed/monitor): " mode
 network_interface_mon="${network_interface}mon"
 
+#check if new mac address is put
 if [[ "$mac_address" == "" ]]; then
 	echo "Default MAC address."
 fi
-
+#network interface is downed first to change network mode and addresss
 ip link set dev $network_interface down 2>/dev/null
 ip link set dev $network_interface_mon down 2>/dev/null
 
@@ -27,7 +28,9 @@ elif [[ "$mode" == "managed" ]]; then
         if [[ "$mac_address" != "" ]]; then
 	        ip link set dev $network_interface address $mac_address
 	fi
+#monitor interface is deleted if the network is switched from monitor to managed	
 	iw dev $network_interface_mon del 2>/dev/null
 	ip link set $network_interface up
+#start is used so that networkmanager is working after boot	
 	systemctl start NetworkManager wpa_supplicant
 fi
